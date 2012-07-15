@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xwikidoc>
+<web>XWiki</web>
+<name>BespinXWikiAdapter</name>
+<language></language>
+<defaultLanguage></defaultLanguage>
+<translation>0</translation>
+<parent></parent>
+<creator>XWiki.Admin</creator>
+<author>XWiki.Admin</author>
+<customClass></customClass>
+<contentAuthor>XWiki.Admin</contentAuthor>
+<creationDate>1234621842000</creationDate>
+<date>1235822954000</date>
+<contentUpdateDate>1235835210000</contentUpdateDate>
+<version>1.1</version>
+<title></title>
+<template></template>
+<defaultTemplate></defaultTemplate>
+<validationScript></validationScript>
+<comment></comment>
+<minorEdit>false</minorEdit>
+<syntaxId>xwiki/1.0</syntaxId>
+<object>
+<class>
+<name>XWiki.JavaScriptExtension</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<cache>
+<cache>0</cache>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>cache</name>
+<number>5</number>
+<prettyName>Caching policy</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>long|short|default|forbid</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</cache>
+<code>
+<name>code</name>
+<number>2</number>
+<prettyName>Code</prettyName>
+<rows>20</rows>
+<size>50</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</code>
+<name>
+<name>name</name>
+<number>1</number>
+<prettyName>Name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+<parse>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>parse</name>
+<number>4</number>
+<prettyName>Parse content</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</parse>
+<use>
+<cache>0</cache>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>use</name>
+<number>3</number>
+<prettyName>Use this extension</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>onDemand=On demand|always=Always</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</use>
+</class>
+<name>XWiki.BespinXWikiAdapter</name>
+<number>0</number>
+<className>XWiki.JavaScriptExtension</className>
+<property>
+<cache>default</cache>
+</property>
+<property>
+<code>/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+ * See the License for the specific language governing rights and
+ * limitations under the License.
+ *
+ * The Original Code is Bespin.
+ *
+ * The Initial Developer of the Original Code is Mozilla.
+ * Portions created by the Initial Developer are Copyright (C) 2009
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Bespin Team (bespin@mozilla.com)
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+// Hacked by Jerome Velociter to work with JSX/SSX eXtensions and skin files inside XWiki
+// Replace calls to Bespin Server by custom AJAX requests or hardcoded dummy data
+
+Bespin.Server = Class.create({
+    // ** {{{ initialize(base) }}}
+    //
+    // Object creation initialization
+    //
+    // * {{{base}}} is the base server URL to access
+    initialize: function(base) {
+        this.SERVER_BASE_URL = base || '';
+    },
+
+    // == Helpers ==
+
+    // ** {{{ request(method, url, payload, callbackOptions) }}}
+    //
+    // The core way to access the backend system.
+    // Similar to the Prototype Ajax.Request wrapper 
+    //
+    // * {{{method}}} is the HTTP method (GET|POST|PUT|DELETE)
+    // * {{{url}}} is the sub url to hit (after the base url)
+    // * {{{payload}}} is what to send up for POST requests
+    // * {{{callbackOptions}}} is how you pass in various callbacks.
+    //   callbackOptions['evalJSON'] = true or false to auto eval
+    //   callbackOptions['call'] = the main callback
+    //   callbackOptions['log'] = just log the following
+    //   callbackOptions['onFailure'] = call for general failures
+    //   callbackOptions['on' + STATUS CODE] = call for specific failures
+    request: function(method, url, payload, callbackOptions) {
+
+        var xhr = new XMLHttpRequest();
+        
+        if (location.href.startsWith("file:")) { // if developing and using this locally only!
+           try {
+               if (netscape.security.PrivilegeManager.enablePrivilege) {
+                   netscape.security.PrivilegeManager.enablePrivilege('UniversalBrowserRead');
+               }
+           } catch (ex) {
+           }
+        }
+        
+        if (callbackOptions) { // do it async (best)
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {                  
+                    if (xhr.status &amp;&amp; xhr.status != 0 &amp;&amp; (xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300)) {
+                        var text = xhr.responseText;
+                        
+                        if (callbackOptions['evalJSON'] &amp;&amp; text) {
+                            try {
+                                text = text.evalJSON(true);
+                            } catch (syntaxException) {
+                                console.log("Couldn't eval the JSON: " + text + " (SyntaxError: " + syntaxException + ")");
+                            }
+                        }
+                        
+                        if (Object.isFunction(callbackOptions['call'])) {
+                            callbackOptions['call'](text, xhr);
+                        } else if (callbackOptions['log']) {
+                            console.log(callbackOptions['log']);
+                        }
+                    } else {                        
+                        var onStatus = 'on' + xhr.status;
+                        if (callbackOptions[onStatus]) {
+                            callbackOptions[onStatus](xhr);
+                        } else if (callbackOptions['onFailure']) {
+                            callbackOptions['onFailure'](xhr);
+                        }
+                    }
+                }
+            }
+            xhr.open(method, this.SERVER_BASE_URL + url, true); // url must have leading /
+			xhr.setRequestHeader("Content-Type", 'application/x-www-form-urlencoded')
+            xhr.send(payload);
+        } else {
+            var fullUrl = this.SERVER_BASE_URL + url;
+            console.log("Are you sure you want to do a synchronous Ajax call? Really? " + fullUrl);
+            xhr.open(method, fullUrl, false);
+            xhr.send(payload);
+            return xhr.responseText;
+        }
+    },
+
+    // == USER ==
+
+    // ** {{{ login(user, pass, callback, notloggedin) }}}
+    //
+    // Try to login to the backend system.
+    // 
+    // * {{{user}}} is the username
+    // * {{{pass}}} is the password
+    // * {{{onSuccess}}} fires when the user is logged in
+    // * {{{onFailure}}} fires when the user failed to login
+    login: function(user, pass, onSuccess, onFailure) {
+        var url = "/register/login/" + user;
+        this.request('POST', url, "password=" + escape(pass), { 
+            call: onSuccess, on401: onFailure, log: 'Login complete.' 
+        });
+    },
+
+    // ** {{{ signup(user, pass, email, callback, notloggedin, userconflict) }}}
+    //
+    // Signup / Register the user to the backend system
+    // 
+    // * {{{user}}} is the username
+    // * {{{pass}}} is the password
+    // * {{{email}}} is the email
+    // * {{{onSuccess}}} fires when the user is logged in
+    // * {{{notloggedin}}} fires when not logged in
+    // * {{{userconflict}}} fires when the username exists
+	signup: function(user, pass, email, onSuccess, notloggedin, userconflict) {
+        var url = "/register/new/" + user;
+        this.request('POST', url, 
+			"password=" + escape(pass) + "&amp;email=" + escape(email), { 
+			call: onSuccess, on401: notloggedin, on409: userconflict,
+			log: 'Login complete.' 
+		});
+	},
+
+    // ** {{{ logout(callback) }}}
+    //
+    // Logout from the backend
+    // 
+    // * {{{callback}}} fires after the logout attempt
+    logout: function(callback) {
+        var url = "/register/logout/";
+        this.request('POST', url, null, { log: 'Logout complete.', call: callback });
+    },
+
+    // ** {{{ currentuser(callback, notloggedin) }}}
+    //
+    // Return info on the current logged in user
+    // 
+    // * {{{callback}}} fires after the user attempt
+    // * {{{notloggedin}}} fires if the user isn't logged in
+    currentuser: function(callback, notloggedin) {
+        var url = "/register/userinfo/";
+        //return this.request('GET', url, null, 
+        //        { call: callback, on401: notloggedin, evalJSON: true });
+        callback({"project": "2-a2e24e00f6200e342085bc8657a9ee0873026a65", "amountUsed": 1012556, "username": "xwikihack", "quota": 15000000});
+    },
+
+    // == FILES ==
+
+    // ** {{{ list(project, path, callback) }}}
+    //
+    // List the path in the given project
+    // 
+    // * {{{project}}} is the project to list
+    // * {{{path}}} is the path to list out
+    // * {{{callback}}} fires after the list returns
+    list: function(project, path, callback) {
+        var project = project || '';
+        var url = Bespin.Path.combine('/file/list/', project, path || '/');
+
+        this.request('GET', url, null, { call: callback, evalJSON: true, log: "Listing files in: " + url });
+    },
+
+    // ** {{{ projects(callback) }}}
+    //
+    // Return the list of projects that you have access too
+    // 
+    // * {{{callback}}} gets fired with the project list
+    projects: function(callback) {
+        this.request('GET', '/file/list/', null, { call: callback, evalJSON: true });
+    },
+
+    // ** {{{ saveFile(project, path, contents, lastOp) }}}
+    //
+    // Save the given file
+    // 
+    // * {{{project}}} is the project to save
+    // * {{{path}}} is the path to save to
+    // * {{{callback}}} fires after the save returns
+    // * {{{lastOp}}} contains the last edit operation
+    saveFile: function(project, path, contents, lastOp) {
+        if (!project || !path) return;
+
+//        var url = '/file/at/' + project + '/' + (path || '');
+//        if (lastOp) url += "?lastEdit=" + lastOp;
+//        this.request('PUT', url, contents, { log: 'Saved file.' });
+         
+// &lt;xwiki&gt;
+
+          var file = path;
+          var params = {};
+
+          if(path.match(/^XWiki.JavaScriptExtension/)) { // JSX
+            var fieldName = path.replace(/\.js$/,'') + "_code";
+            path = path.replace(/\.js$/,'');
+          }
+          else if(path.match(/^XWiki.StyleSheetExtension/)) {  //SSX
+            var fieldName = path.replace(/\.css$/,'') + "_code";
+            path = path.replace(/\.css$/,'');
+          }
+          else {   // Skin file
+            var fieldName = path;
+          }
+
+          params[fieldName] = contents;
+ 
+          var doc = $$("meta[name='document']")[0].content.replace('\.','/');
+          new Ajax.Request('/xwiki/bin/save/' + doc , {
+               method:"post",
+               parameters:params,
+               onSuccess: function(transport) {
+               },
+               onFailure: function(transport) {
+                   console.log("Failed to save file: " + path);
+               }
+          });
+
+          // update lock
+          var document = $$("meta[name='document']")[0].content;
+          new Ajax.Request('/xwiki/bin/view/XWiki/SkinEditor?xpage=plain&amp;update=' + document + "&amp;file=" + path, {});
+
+// &lt;/xwiki&gt;
+
+    },
+
+    // ** {{{ loadFile(project, path, contents) }}}
+    //
+    // Load the given file
+    // 
+    // * {{{project}}} is the project to load from
+    // * {{{path}}} is the path to load
+    // * {{{callback}}} fires after the file is loaded
+    loadFile: function(project, path, callback) {
+        var project = project || '';
+        var path = path || '';
+        var url = Bespin.Path.combine('/file/at', project, path);
+console.log("get file called");
+        this.request('GET', url, null, { call: callback });
+    },
+
+    // ** {{{ removeFile(project, path, onSuccess, onFailure) }}}
+    //
+    // Remove the given file
+    // 
+    // * {{{project}}} is the project to remove from
+    // * {{{path}}} is the path to remove
+    // * {{{onSuccess}}} fires if the deletion works
+    // * {{{onFailure}}} fires if the deletion failed
+    removeFile: function(project, path, onSuccess, onFailure) {
+        var project = project || '';
+        var path = path || '';
+        var url = Bespin.Path.combine('/file/at', project, path);
+        var opts = { call: onSuccess };
+        if (Object.isFunction(onFailure)) opts.onFailure = onFailure;
+        
+        this.request('DELETE', url, null, opts);
+    },
+
+     // ** {{{ listOpen(callback) }}}
+     //
+     // Returns JSON with the key of filename, and the value of an array of usernames:
+     // { "foo.txt": ["ben"], "SomeAjaxApp/foo.txt": ["dion"] }
+     // 
+     // * {{{callback}}} fires after listing the open files
+    listOpen: function(callback) {
+        this.request('GET', '/file/listopen/', null, {
+            call: callback, evalJSON: true, log: 'List open files.' 
+        });
+    },
+
+    // ** {{{ closeFile(project, path, callback) }}}
+    //
+    // Close the given file (remove from open sessions)
+    // 
+    // * {{{project}}} is the project to close from
+    // * {{{path}}} is the path to close
+    // * {{{callback}}} fires after the file is closed
+    closeFile: function(project, path, callback) {
+        var path = path || '';
+        var url = Bespin.Path.combine('/file/close', project, path);
+        this.request('POST', url, null, { call: callback });
+    },
+
+    // == EDIT ==
+
+    // ** {{{ editActions(project, path, callback) }}}
+    //
+    // Get the list of edit actions
+    // 
+    // * {{{project}}} is the project to edit from
+    // * {{{path}}} is the path to edit
+    // * {{{callback}}} fires after the edit is done
+    editActions: function(project, path, callback) {
+        var path = path || '';
+        var url = Bespin.Path.combine('/edit/list', project, path);
+//        this.request('GET', url, null, { call: callback, log: "Edit Actions Complete." });
+        callback('{}');
+    },
+
+    // ** {{{ editAfterActions(project, path, callback) }}}
+    //
+    // Get the list of edit after actions
+    // 
+    // * {{{project}}} is the project to edit from
+    // * {{{path}}} is the path to edit
+    // * {{{callback}}} fires after the edit is done
+    editAfterActions: function(project, path, index, callback) {
+        var path = path || '';
+        var url = Bespin.Path.combine('/edit/recent', index, project, path);
+//        this.request('GET', url, null, { call: callback, log: "Edit After Actions Complete." });
+        callback('{}');
+    },
+
+    // ** {{{ doAction(project, path, actions) }}}
+    //
+    // Store actions to the edit queue
+    // 
+    // * {{{project}}} is the project
+    // * {{{path}}} is the path
+    // * {{{actions}}} contain the actions to store
+    doAction: function(project, path, actions) {
+        var path = path || '';
+        var url = Bespin.Path.combine('/edit', project, path);
+
+        var sp = "[" + actions.join(",") + "]";
+        var params = {actions:sp};
+
+        //this.request('PUT', url, sp, { call: function(){} });
+    },
+
+    // == PROJECTS ==
+    //
+    // still needed: owners, authorize, deauthorize
+    
+    // ** {{{ exportProject(project, archivetype) }}}
+    //
+    // Export the project as either a zip file or tar + gz
+    // 
+    // * {{{project}}} is the project to export
+    // * {{{archivetype}}} is either zip | tgz
+    exportProject: function(project, archivetype) {
+        if (['zip','tgz','tar.gz'].include(archivetype)) {
+            var iframe = document.createElement("iframe");
+            iframe.src = Bespin.Path.combine('/project/export', project + "." + archivetype);
+            iframe.style.display = 'none';
+            iframe.style.height = iframe.style.width = "0";
+            document.getElementsByTagName("body")[0].appendChild(iframe);
+        }
+    },
+
+    // ** {{{ importProject(project, url, opts) }}}
+    //
+    // Import the given file into the given project
+    // 
+    // * {{{project}}} is the project to export
+    // * {{{url}}} is the URL to the file to import
+    // * {{{archivetype}}} is either zip | tgz
+    importProject: function(project, url, opts) {
+        if (opts) { // wrap the import success call in an event to say that the import is complete
+            var userCall = opts.call;
+            opts.call = function(text, xhr) {
+                userCall(text, xhr);
+                document.fire("bespin:project:imported", {
+                    project: project,
+                    url: url
+                });
+            }
+        }
+        
+        this.request('POST', '/project/fromurl/' + project, url, opts || {});
+    },
+
+    // == SETTINGS ==
+    //
+    //
+    // * GET /settings/ to list all settings for currently logged in user as json dict
+    // * GET /settings/[setting] to get the value for a single setting as json string
+    // * POST /settings/ with HTTP POST DATA (in standard form post syntax) to set the value for a collection of settings (all values are strings)
+    // * DELETE /settings/[setting] to delete a single setting
+
+    listSettings: function(callback) {
+/*        if (typeof callback == "function") {
+            this.request('GET', '/settings/', null, { call: callback, evalJSON: true });
+        }
+*/
+      // just give back something
+      callback({"_username": "$context.user", "collaborate": "on", "syntax": "auto", "autocomplete": "off", "fontsize": "10", "tabsize" : "2", "keybindings": "emacs", "_project": "SampleProjectFor:jvelo", "_path": "example.js"});
+    },
+
+    getSetting: function(name, callback) {
+/*        if (typeof callback == "function") {
+            this.request('GET', '/settings/' + name, null, { call: callback });
+        }*/
+callback( '{"_username": "$context.user", "collaborate": "on", "syntax": "auto", "autocomplete": "off", "fontsize": "10", "tabsize" : "2", "keybindings": "emacs", "_project": "synesketch", "_path": "/synesketch.js"}');
+    },
+    
+    setSetting: function(name, value, callback) {
+        var settings = {};
+        settings[name] = value;
+        this.setSettings(settings, (callback || Prototype.emptyFunction));
+    },
+    
+    setSettings: function(settings, callback) {
+        //this.request('POST', '/settings/', Object.toQueryString(settings), { call: (callback || Prototype.emptyFunction) });
+    },
+    
+    unsetSetting: function(name, callback) {
+        this.request('DELETE', '/settings/' + name, null, { call: (callback || Prototype.emptyFunction) });
+    }
+});
+
+//////////////////////////////////
+
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
+ * See the License for the specific language governing rights and
+ * limitations under the License.
+ *
+ * The Original Code is Bespin.
+ *
+ * The Initial Developer of the Original Code is Mozilla.
+ * Portions created by the Initial Developer are Copyright (C) 2009
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Bespin Team (bespin@mozilla.com)
+ *
+ * ***** END LICENSE BLOCK ***** */
+ 
+// = FileSystem =
+//
+// This abstracts the remote Web Service file system, and in the future
+// local file systems too.
+// 
+// It ties into the {{{Server}}} object for remote access
+
+if (typeof Bespin == "undefined") Bespin = {};
+
+Bespin.FileSystem = Class.create({
+
+    // ** {{{ FileSystem.newFile(project, path, callback) }}}
+    //
+    // Create a new file in the file system using:
+    //
+    // * {{{project}}} is the name of the project to create the file in
+    // * {{{path}}} is the full path to save the file into
+    // * {{{onSuccess}}} is a callback to fire if the file is created
+    newFile: function(project, path, onSuccess) {
+        this.whenFileDoesNotExist(project, path, {
+            execute: function() {
+                _editSession.startSession(project, path || "new.txt");
+                onSuccess();
+            },
+            elseFailed: function() {
+                document.fire("bespin:cmdline:showinfo", { msg: 'The file ' + path + ' already exists my friend.'});
+            }
+        });
+    },
+
+    // ** {{{ FileSystem.loadFile(project, path, callback) }}}
+    //
+    // Load the file in the given project and path and get going
+    //
+    // * {{{project}}} is the name of the project that houses the file
+    // * {{{path}}} is the full path to load the file into
+    // * {{{onSuccess}}} is a callback to fire if the file is loaded
+    // * {{{dontStartSession}}} is a flag to turn off starting a session. Used in the config loading for example
+    loadFile: function(project, path, onSuccess, dontStartSession) {
+        if (!dontStartSession) _editSession.startSession(project, path);
+
+//        _server.loadFile(project, path, function(content) {
+//            if (content.endsWith("\n")) content = content.substr(0, content.length - 1);
+
+         // save our extension
+
+         var doc = $$("meta[name='document']")[0].content.replace('\.','/');
+
+          // get the content
+          new Ajax.Request("/xwiki/bin/view/" + doc + '/' + '?xpage=plain&amp;filename=' + path, {
+               onSuccess: function(transport) {
+                   $('editor').width = "900";
+                   onSuccess({
+                     name: path,
+                     content: transport.responseText,
+                     timestamp: new Date().getTime()
+                   });
+               }
+          });
+
+
+          // lock file
+          new Ajax.Request("/xwiki/bin/lock/" + doc + '?ajax=1', {});
+
+//        });
+    },
+
+    // ** {{{ FileSystem.projects(callback) }}}
+    //
+    // Return a JSON representation of the projects that the user has access too
+    //
+    // * {{{callback}}} is a callback that fires given the project list
+    projects: function(callback) {
+        _server.projects(callback);
+    },
+
+    // ** {{{ FileSystem.fileNames(callback) }}}
+    //
+    // Return a JSON representation of the files at the root of the given project
+    //
+    // * {{{callback}}} is a callback that fires given the files
+    fileNames: function(project, callback) {
+        _server.list(project, '', callback);
+    },
+
+    // ** {{{ FileSystem.saveFile(project, file) }}}
+    //
+    // Save a file to the given project
+    //
+    // * {{{project}}} is the name of the project to save into
+    // * {{{file}}} is the file object that contains the path and content to save
+    saveFile: function(project, file) {
+        // Unix files should always have a trailing new-line; add if not present
+        if (!file.content.endsWith("\n")) file.content += "\n";
+
+        _server.saveFile(project, file.name, file.content, file.lastOp);
+    },
+
+    // ** {{{ FileSystem.removeFile(project, path, onSuccess, onFailure) }}}
+    //
+    // Remove the file from the file system
+    //
+    // * {{{project}}} is the name of the project to delete the file from
+    // * {{{path}}} is the full path to the file to delete
+    // * {{{onSuccess}}} is the callback to fire if the remove works
+    // * {{{onFailure}}} is the callback to fire if the remove fails
+    removeFile: function(project, path, onSuccess, onFailure) {
+        _server.removeFile(project, path, onSuccess, onFailure);
+    },
+
+    // ** {{{ FileSystem.removeFile(project, path, onSuccess, onFailure) }}}
+    //
+    // Close the open session for the file
+    //
+    // * {{{project}}} is the name of the project to close the file from
+    // * {{{path}}} is the full path to the file to close
+    // * {{{callback}}} is the callback to fire when closed
+    closeFile: function(project, path, callback) {
+        _server.closeFile(project, path, callback);
+    },
+
+    // ** {{{ FileSystem.whenFileExists(project, path, callbacks) }}}
+    //
+    // Check to see if the file exists and then run the appropriate callback
+    //
+    // * {{{project}}} is the name of the project
+    // * {{{path}}} is the full path to the file
+    // * {{{callbacks}}} is the pair of callbacks:
+    //   execute (file exists)
+    //   elseFailed (file does not exist)
+    whenFileExists: function(project, path, callbacks) {
+        _server.list(project, Bespin.Path.directory(path), function(files) {
+            if (files &amp;&amp; files.include(path)) {
+                callbacks['execute']();
+            } else {
+                if (callbacks['elseFailed']) callbacks['elseFailed']();
+            }
+        });
+    },
+
+    // ** {{{ FileSystem.whenFileDoesNotExist(project, path, callbacks) }}}
+    //
+    // The opposite of {{{ FileSystem.whenFileExists() }}}
+    //
+    // * {{{project}}} is the name of the project
+    // * {{{path}}} is the full path to the file
+    // * {{{callbacks}}} is the pair of callbacks:
+    //   execute (file does not exist)
+    //   elseFailed (file exists)
+    whenFileDoesNotExist: function(project, path, callbacks) {
+        _server.list(project, Bespin.Path.directory(path), function(files) {
+            if (!files || !files.include(path)) {
+                callbacks['execute']();
+            } else {
+                if (callbacks['elseFailed']) callbacks['elseFailed']();
+            }
+        });
+    }
+
+});
+
+/////////////////////////////////////
+
+Event.observe(window,'load', function() {
+   document.fire("bespin:editor:openfile", { filename:$$("meta[name='filename']")[0].content });
+   Event.observe($('bespinsave'), 'click', function(){
+      document.fire("bespin:editor:savefile");
+   });
+});
+
+</code></property><property><name>heck! This is a hax^tension!</name>
+</property>
+<property>
+<parse>1</parse>
+</property>
+<property>
+<use>onDemand</use>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.TagClass</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<tags>
+<cache>0</cache>
+<displayType>input</displayType>
+<multiSelect>1</multiSelect>
+<name>tags</name>
+<number>1</number>
+<prettyName>Tags</prettyName>
+<relationalStorage>1</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<values></values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</tags>
+</class>
+<name>XWiki.BespinXWikiAdapter</name>
+<number>0</number>
+<className>XWiki.TagClass</className>
+<property>
+<tags/>
+</property>
+</object>
+<content>#info("JSX Adapter to user the Bespin Editor in XWiki.")
+</content></xwikidoc>

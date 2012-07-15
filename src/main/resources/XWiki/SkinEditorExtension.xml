@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xwikidoc>
+<web>XWiki</web>
+<name>SkinEditorExtension</name>
+<language></language>
+<defaultLanguage></defaultLanguage>
+<translation>0</translation>
+<parent></parent>
+<creator>XWiki.Admin</creator>
+<author>XWiki.Admin</author>
+<customClass></customClass>
+<contentAuthor>XWiki.Admin</contentAuthor>
+<creationDate>1235210308000</creationDate>
+<date>1235554794000</date>
+<contentUpdateDate>1235835210000</contentUpdateDate>
+<version>1.1</version>
+<title></title>
+<template></template>
+<defaultTemplate></defaultTemplate>
+<validationScript></validationScript>
+<comment></comment>
+<minorEdit>false</minorEdit>
+<syntaxId>xwiki/1.0</syntaxId>
+<attachment>
+<filename>alert.gif</filename>
+<filesize>65</filesize>
+<author>XWiki.Admin</author>
+<date>1235305806000</date>
+<version>1.1</version>
+<comment></comment>
+<content>R0lGODlhEAAQAIABAP///8zMzCH5BAEAAAEALAAAAAAQABAAAAIYjI+py+2fAIBBSmjny/R2TYUVuJHiiR4FADs=</content>
+</attachment>
+<attachment>
+<filename>arrow.png</filename>
+<filesize>258</filesize>
+<author>XWiki.Admin</author>
+<date>1235305801000</date>
+<version>1.1</version>
+<comment></comment>
+<content>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAK8AAACvABQqw0mAAAAB90RVh0U29mdHdhcmUATWFjcm9tZWRpYSBGaXJld29ya3MgOLVo0ngAAAAWdEVYdENyZWF0aW9uIFRpbWUAMjEvMDIvMDkpWpuGAAAAV0lEQVQ4jZ3TQQoAMQhD0Tj0/lfOrIQWRPRn58IntBqSbDsEE5KcBYEegEAlsIFaYAKNgA5aARWEgBv6aHPm0MkIqB5xBHTf2AKTRSqBzSo/ADmmQxszPwwxNQGmXAWxAAAAAElFTkSuQmCC</content>
+</attachment>
+<attachment>
+<filename>toolbarsubbg.png</filename>
+<filesize>252</filesize>
+<author>XWiki.Admin</author>
+<date>1235305833000</date>
+<version>1.1</version>
+<comment></comment>
+<content>iVBORw0KGgoAAAANSUhEUgAAAEMAAAAmCAYAAACf8yaaAAAACXBIWXMAAAsTAAALEwEAmpwYAAAArklEQVRoge3awQkCUQxF0RvJztLElfZfgKhgBbpQZ14HP4t7KniEJH8CU9fL6Y0A6Mf9vjrDGA21OsMYbS12bS12h9UBJnFnBHdGcGeEpizHn50RfE1Cl2OysTOCT2voshobxyS0+3PnbRLsjGBnBJ/W4G0SHJPgAg1+dAWv1mBnBIsRLEZwZ4QC/CXhp4Dz6hBTNHBbHWKKBp6rQ0zRwGt1iCkKOK4OMUXx7Q4BH2KRCXSlzkV8AAAAAElFTkSuQmCC</content>
+</attachment>
+<attachment>
+<filename>SKElogo.jpg</filename>
+<filesize>3839</filesize>
+<author>XWiki.Admin</author>
+<date>1235305866000</date>
+<version>1.1</version>
+<comment></comment>
+<content>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</content>
+</attachment>
+<attachment>
+<filename>footerbg.png</filename>
+<filesize>225</filesize>
+<author>XWiki.Admin</author>
+<date>1235305827000</date>
+<version>1.1</version>
+<comment></comment>
+<content>iVBORw0KGgoAAAANSUhEUgAAADUAAAAmCAYAAABkpNNFAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAINJREFUeNrsmcsJgDAQRCcS8OBBsC2P2n8FsQY/VUSfbyEFPGZndiA1SQ1sHqCRCDURoWYi1EKDKvc7cUrt2xoc1NFagJ4qQCgeUyqQKQOQSU/pqc5KFZUy/bopBVw/6J1iRrrr95WgsPuplEoZ6b9s6QaFx9eWrlJC6an3DvJ/6hJgAG+fBo94F9NEAAAAAElFTkSuQmCC</content>
+</attachment>
+<attachment>
+<filename>edit.gif</filename>
+<filesize>67</filesize>
+<author>XWiki.Admin</author>
+<date>1235305823000</date>
+<version>1.1</version>
+<comment></comment>
+<content>R0lGODlhEAAQAIABAP///8zMzCH5BAEAAAEALAAAAAAQABAAAAIajI+py+0HHgTxRVpZzms734AaZF0SJqXqihQAOw==</content>
+</attachment>
+<attachment>
+<filename>lock.gif</filename>
+<filesize>71</filesize>
+<author>XWiki.Admin</author>
+<date>1235305813000</date>
+<version>1.1</version>
+<comment></comment>
+<content>R0lGODlhEAAQAIABAP///8zMzCH5BAEAAAEALAAAAAAQABAAAAIejI+py90AgQvyVHbpixzz6FXgMo5KCYXf1k3uCxsFADs=</content>
+</attachment>
+<attachment>
+<filename>filespanebg.png</filename>
+<filesize>331</filesize>
+<author>XWiki.Admin</author>
+<date>1235305817000</date>
+<version>1.1</version>
+<comment></comment>
+<content>iVBORw0KGgoAAAANSUhEUgAAANwAAAAzCAYAAAD8SGbWAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAK8AAACvABQqw0mAAAAB90RVh0U29mdHdhcmUATWFjcm9tZWRpYSBGaXJld29ya3MgOLVo0ngAAADCSURBVHic7dOxDYJQAADRrzOQ0DiLHWH/HWhIrH8rU3gWvDfBNfd4rcv3OD9j395jzjmA33n+OwDuxHAQMhyEDAchw0HIcBAyHIQMByHDQchwEDIchAwHIcNByHAQMhyEDAchw0HIcBAyHIQMByHDQchwEDIchAwHIcNByHAQMhyEDAchw0HIcBAyHIQMByHDQchwEDIchAwHIcNByHAQMhyEDAchw0HIcBAyHIQMByHDQchwEDIchAwHIcNByHAQugCD8QgR4FZNRAAAAABJRU5ErkJggg==</content>
+</attachment>
+<object>
+<class>
+<name>XWiki.JavaScriptExtension</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<cache>
+<cache>0</cache>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>cache</name>
+<number>5</number>
+<prettyName>Caching policy</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>long|short|default|forbid</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</cache>
+<code>
+<name>code</name>
+<number>2</number>
+<prettyName>Code</prettyName>
+<rows>20</rows>
+<size>50</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</code>
+<name>
+<name>name</name>
+<number>1</number>
+<prettyName>Name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+<parse>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>parse</name>
+<number>4</number>
+<prettyName>Parse content</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</parse>
+<use>
+<cache>0</cache>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>use</name>
+<number>3</number>
+<prettyName>Use this extension</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>onDemand=On demand|always=Always</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</use>
+</class>
+<name>XWiki.SkinEditorExtension</name>
+<number>0</number>
+<className>XWiki.JavaScriptExtension</className>
+<property>
+<cache>default</cache>
+</property>
+<property>
+<code>(function() {
+
+var toolbar; // we need a reference on bespin toolbar to change font size. 
+var editor; // reference on the editor used to change theme.
+
+var theme;
+var zebra;
+
+var skinDocument;
+var fileName;
+var bespinFileName;
+
+// Add HMTL coloration to velocity templates.
+// TODO extend the HTML syntax engine to color velocity instructions.
+Bespin.Syntax.EngineResolver.register (new Bespin.Syntax.HTMLSyntaxEngine(), ["vm"]);
+
+// Override Bespin's white zebra for the coffee theme (preserve your eyes ;))
+Bespin.Themes.coffeezebra.zebraStripeColor = '#41332A';
+                                                        
+document.observe("dom:loaded", function() {
+     theme = $('skineditortheme').value;
+     zebra = $('skineditorzebra').checked;
+
+     skinDocument = $$("meta[name='document']")[0].content;
+
+     fileName = $$("meta[name='file']")[0].content;
+     bespinFileName = $$("meta[name='filename']")[0].content;
+
+
+     Event.observe($('fontsize'), "click", function(){
+       toolbar.currentFontSize = (toolbar.currentFontSize &gt; 2) ? 1 : toolbar.currentFontSize + 1;
+       window.createCookie("skineditorfontsize", toolbar.currentFontSize); // for next time
+       document.fire("xwiki:skineditor:setfontsize");
+     });
+
+     Event.observe($('skineditortheme'), "change", function(ev) {
+       theme = ev.element().value;
+       window.createCookie("skineditortheme", theme);
+       document.fire("xwiki:skineditor:settheme");
+     });
+
+     Event.observe($('skineditorzebra'), "change", function(ev) {
+       zebra = ev.element().checked;
+       window.createCookie("skineditorzebra", zebra ? "1" : "0");
+       document.fire("xwiki:skineditor:settheme");
+     });
+
+     Event.observe($('backtoxwiki'), "click", function(){
+         new Ajax.Request(
+              "$xwiki.getURL('XWiki.SkinEditor','view','xpage=plain')" + "&amp;release=" + skinDocument + "&amp;file=" + bespinFileName, {}
+         );
+         location.href = window.location.toString().substring(0, window.location.toString().indexOf('?')); // :( TODO improve
+     });
+
+     processFilesLinks();
+});
+
+// Hook that allows us to execute our code once the editor is in place and file is loaded.
+document.observe("bespin:editor:openfile:opensuccess", function() {
+     // Hack to force the canvas to resize and take all space we make available for it.
+     doResize();
+
+     toolbar = window._toolbar;
+     editor = window._editor;
+
+     SkinEditor.initialize();
+
+     var fontSize = parseInt(window.readCookie("skineditorfontsize"));
+     if (fontSize) {
+          toolbar.currentFontSize = fontSize;
+          document.fire("bespin:settings:set:fontsize", { value:toolbar.FONT_SIZES[toolbar.currentFontSize] });
+     }
+
+     document.fire("xwiki:skineditor:settheme");
+});
+
+// Fire font size change to the bespin editor
+document.observe("xwiki:skineditor:setfontsize", function(ev) {
+     document.fire("bespin:settings:set:fontsize", { value:toolbar.FONT_SIZES[toolbar.currentFontSize] });
+});
+
+document.observe("xwiki:skineditor:settheme", function() {
+     editor.theme = eval("Bespin.Themes." + theme + (zebra ? "zebra" : ""));
+     document.fire("xwiki:skineditor:setfontsize");
+});
+
+
+var fileListBuffer = new Element("div");
+
+function showHideEmptyFiles(element, hide){
+   if (typeof element == "undefined") {
+       element = $('filelist');
+   }
+   element.select("li[class*='empty']").each(function(elem) {
+     // if empty but open, we keep it in the list.
+     if(hide &amp;&amp; !elem.hasClassName('selected')) {
+       elem.addClassName("hidden");
+     }
+     else if (!hide) {
+       elem.removeClassName("hidden");
+     }
+   });         
+}
+
+/**
+ * Injects release lock AJAX request firing when clicking on edit a different file to make sure the lock is released.
+ */
+function processFilesLinks(element) {
+   if (typeof element == "undefined") {
+       element = $('filelist');
+   }
+   element.select("li[class*='skinfile'] div.xshowonhover a").each(function(link){
+       var args = {"href" : link.href};
+       link.href = '#';
+       link.observe("click", function(ev) {
+         new Ajax.Request(
+              "$xwiki.getURL('XWiki.SkinEditor','view','xpage=plain')" + "&amp;release=" + skinDocument + "&amp;file=" + bespinFileName, {}
+         );
+         window.location = this.href;
+       }.bind(args));
+   });
+}
+
+var SkinEditor = {
+    // the base of the URL that we'll call through AJAX to get/post latest news.
+    "serviceBaseURL": "$xwiki.getURL('XWiki.SkinEditor','view','xpage=plain')",
+    // Initialization hook
+    "initialize": function(){
+        this.skinDocument = $$("meta[name='document']")[0].content;
+        this.fileName = $$("meta[name='file']")[0].content;
+        this.bespinFileName = $$("meta[name='filename']")[0].content;
+        this.fileListContainer = $('filelist');
+        this.showEmptyFiles = $('skinfileshide').checked ? false : true;
+        showHideEmptyFiles(undefined, !this.showEmptyFiles);
+        // Obseve clicks on hide empty files.
+        Event.observe($('skinfileshide'),"change", function(ev) {
+            if (ev.element().checked) {
+                this.showEmptyFiles = false;
+                showHideEmptyFiles(undefined, true);
+                window.createCookie("skineditorhideemptyfiles","1");
+            }
+           else {
+                this.showEmptyFiles = true;
+                showHideEmptyFiles(undefined, false);
+                window.createCookie("skineditorhideemptyfiles","0");
+           }
+        }.bind(this));
+        this.refreshFileList();
+        // refresh the file list every 5 seconds to see locks and empty files changes.
+        this.refreshFileListInterval = window.setInterval(this.refreshFileList.bind(this), 10000);
+    },
+
+    "refreshFileList": function() {        
+        var success = function(self, transport){};
+        new Ajax.Request(this.serviceBaseURL + "&amp;service=files&amp;doc=" + this.skinDocument + "&amp;file=" + this.fileName, 
+        {
+              method:"get",
+              onSuccess: function(transport) {
+                 fileListBuffer.innerHTML = transport.responseText;
+                 if (!this.showEmptyFiles) {
+                     showHideEmptyFiles(fileListBuffer, true);
+                 }
+                 this.fileListContainer.innerHTML = fileListBuffer.innerHTML;
+                 processFilesLinks(this.fileListContainer); // hum... there's a time lapse for which the links are not processed...
+              }.bind(this)
+        });
+    },
+};
+
+})();
+</code></property><property><name>Skin Editor</name>
+</property>
+<property>
+<parse>1</parse>
+</property>
+<property>
+<use>onDemand</use>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.StyleSheetExtension</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<cache>
+<cache>0</cache>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>cache</name>
+<number>5</number>
+<prettyName>Caching policy</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>long|short|default|forbid</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</cache>
+<code>
+<name>code</name>
+<number>2</number>
+<prettyName>Code</prettyName>
+<rows>20</rows>
+<size>50</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+</code>
+<name>
+<name>name</name>
+<number>1</number>
+<prettyName>Name</prettyName>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+</name>
+<parse>
+<displayFormType>select</displayFormType>
+<displayType>yesno</displayType>
+<name>parse</name>
+<number>4</number>
+<prettyName>Parse content</prettyName>
+<unmodifiable>0</unmodifiable>
+<classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+</parse>
+<use>
+<cache>0</cache>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>use</name>
+<number>3</number>
+<prettyName>Use this extension</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>onDemand=On demand|always=Always</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</use>
+</class>
+<name>XWiki.SkinEditorExtension</name>
+<number>0</number>
+<className>XWiki.StyleSheetExtension</className>
+<property>
+<cache>default</cache>
+</property>
+<property>
+<code>body#body {
+padding:0;
+overflow:hidden ;
+  }
+#files {
+	position: absolute;
+	top: 50px;
+	bottom: 12px;
+	right: 0;
+	width: 220px;
+}
+#filesheader{
+	font-size: 14px ;
+ line-height: 32px;
+	font-weight: bold;
+	color: #fff;
+	padding-left: 10px;
+ height: 38px;
+ background-image: url("$doc.getAttachmentURL('toolbarsubbg.png')");
+}
+
+#filesheader span{
+	background-image: none;
+	padding:1px 10px;
+	border: none;
+	background-color: #333;
+margin-right: 20px;
+	font-size: 10px;
+	line-height: 14px !important;
+	min-height: 16px !important;
+	height: 16px;
+	margin-top: 7px;
+-moz-border-radius: 7px;
+-webkit-border-radius: 7px;
+}
+
+#filesheader span input {
+vertical-align:middle;
+}
+/*#filesheader span:hover{ color: #5df;  }
+*/
+#filelist{
+	position: absolute;
+	top: 32px ;
+	bottom: 0px;
+	right: 0;
+	width: 220px;
+	background:#2e2622 url("$doc.getAttachmentURL('filespanebg.png')") repeat-y 0 0;
+	overflow-y:auto ;
+}
+
+#editor, #lockmessage {
+ position: absolute;
+	top: 82px ;
+	bottom:37px;
+	right: 220px;
+ left:0px
+}
+#lockmessage {
+  bottom:10px;
+  background-color:#2a211c;
+}
+
+#lockmessage div.warningmessage {
+  float:left;
+  margin-top:30px;
+  background-color:#4c4a41;
+  color:#e5c138;
+}
+
+#lockmessage div.warningmessage a {
+  color:orange;
+}
+
+#commandline {
+float: left;
+padding: 5px;
+height: 28px;
+}
+
+
+#files ul.xlist li {
+	line-height: 1.3em;
+	background: none;
+	font-size: 0.9em;
+}
+#files ul.xlist li span.locked img{
+	display: none;
+}
+#files ul.xlist li span.locked {
+		padding-left: 16px;
+		height: 16px;
+		margin-left: 10px;
+		background:transparent url("$doc.getAttachmentURL('lock.gif')") no-repeat;
+	}
+
+#files ul.xlist {
+	margin:10px 0 0 2px !important;
+}
+
+#files ul.xlist li.xitem div.xitemcontainer {
+	text-indent: 18px;
+	overflow: auto;
+}
+
+#files ul.xlist li.xitem div.xmore {
+	display: none;
+}
+
+#themes {
+    position:absolute;
+    right:0;
+    top:10px;
+    font-family:monospace;
+    color:lightGrey;
+}
+
+#themes input {
+    vertical-align:middle;
+}
+
+#header{
+	height: 50px;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    background:#000 url("$doc.getAttachmentURL('SKElogo.jpg')") no-repeat 0 0;
+}
+#subheader {
+    height: 38px;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 210px;
+    background-image: url("$doc.getAttachmentURL('toolbarsubbg.png')");
+}
+#fontsize {
+    position: absolute;
+    top:7px;
+    left:10px;
+}
+#footer{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	height:  38px;
+	background-image:  url("$doc.getAttachmentURL('footerbg.png')");
+}
+body#body #xwikiextra {
+padding-top: 7px;
+height: 38px;
+text-align: center;
+padding-right: 220px;
+
+}
+span#fileslist{
+	float: right;
+	color: #fff;
+}
+
+
+
+body#body #xwikiextra .buttonwrapper button{
+	background-image: none;
+	padding:2px 10px;
+	border: none;
+	background-color: #333;
+	font-weight: bold;
+	font-size: 10px;
+	line-height: 14px !important;
+	min-height: 16px !important;
+	height: 18px;
+-moz-border-radius:8px;
+-webkit-border-radius:8px;
+	}
+body#body #xwikiextra .buttonwrapper button:hover{
+color: #5df;
+}
+
+#xwikiextra span.infomessage {
+color:#888;
+font-size: 10px;
+border: none;
+position:absolute;
+right:50;
+top:0;
+padding-left: 16px;
+margin-left: 20px;
+background: transparent url("$doc.getAttachmentURL('alert.gif')") no-repeat 0 4px;
+
+}
+
+
+#files.coffee ul.xlist li.selected {
+	color: #fff;
+	font-weight: bold;
+	background: transparent url("$doc.getAttachmentURL('arrow.png')") no-repeat -5px 3px;
+}
+
+#files.coffee ul.xlist li.xhighlight:hover {
+	background-color: #46433d;
+	}
+
+div.coffee ul.xlist li {
+	color: #aaa;
+}
+div.coffee ul.xlist li.empty {
+	color: #666;
+}
+canvas#canvas {
+position:absolute;
+right:220px;
+bottom: 28px;
+left: 0px;
+top:0px;
+ }
+
+
+/* 
+** Hidden elements in lists that are show on hover 
+*/
+
+ul.xlist li.xitem div.xshowonhover {
+  float: right;
+  font-size: 0.8em;
+  padding: 0;
+  padding-right: 0.5em;
+  display: none;
+  margin-top: -16px;
+}
+.main ul.xlist li.xitem div.xshowonhover {
+
+  margin-top: 0px;
+}
+ul.xlist li.xitem div.xshowonhover a{
+	color: #fff;
+	padding: 0 10px  0 16px;
+	line-height: 16px;
+	background: transparent url("$doc.getAttachmentURL('edit.gif')") no-repeat 0px -2px;
+}
+.main ul.xlist li.xitem div.xshowonhover a{
+	color: red;
+}
+ul.xlist li.xitem div.xshowonhover img{
+	display: none;
+}
+ul.xlist li.xitem:hover div.xshowonhover {  
+  display:block;
+}
+</code></property><property><name>Skin Editor</name>
+</property>
+<property>
+<parse>1</parse>
+</property>
+<property>
+<use>onDemand</use>
+</property>
+</object>
+<object>
+<class>
+<name>XWiki.TagClass</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<tags>
+<cache>0</cache>
+<displayType>input</displayType>
+<multiSelect>1</multiSelect>
+<name>tags</name>
+<number>1</number>
+<prettyName>Tags</prettyName>
+<relationalStorage>1</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>30</size>
+<unmodifiable>0</unmodifiable>
+<values></values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</tags>
+</class>
+<name>XWiki.SkinEditorExtension</name>
+<number>0</number>
+<className>XWiki.TagClass</className>
+<property>
+<tags/>
+</property>
+</object>
+<content>#includeInContext("XWiki.SkinEditor")
+</content></xwikidoc>
